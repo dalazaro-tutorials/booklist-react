@@ -53,10 +53,7 @@ function BookList() {
 }
 
 // Component as arrow function
-const Book = (props) => {
-	console.log(props);
-
-	const {imageUrl, title, authorName} = props;
+const Book = ({imageUrl, title, authorName}) => {
 	const altText = (title && authorName) ? title.toLowerCase().split(' ').join('_') + '_' + authorName.toLowerCase().split(' ').join('_') : '';
 
 	return (
@@ -68,8 +65,7 @@ const Book = (props) => {
 	);
 }
 
-const Cover = (props) => {
-	let {imageUrl, altText} = props;
+const Cover = ({imageUrl, altText}) => {
 	imageUrl = (imageUrl) ? imageUrl : '';
 	altText = (altText) ? altText : 'book_cover';
 
@@ -77,8 +73,7 @@ const Cover = (props) => {
 }
 
 
-const Title = (props) => {
-	let {title} = props;
+const Title = ({title}) => {
 	title = (title) ? title.toUpperCase() : 'Unknown Title';
 
 	return <h3>{title}</h3>;
@@ -86,8 +81,7 @@ const Title = (props) => {
 
 
 // style needs double brackets: outer brackets are JavaScript world, inner brackets are an object
-const Author = (props) => {
-	let {authorName} = props;
+const Author = ({authorName}) => {
 	authorName = (authorName) ? authorName : 'Unknown Author';
 
 	return (
