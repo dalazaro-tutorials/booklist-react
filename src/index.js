@@ -44,7 +44,8 @@ function BookList() {
 			<h2>Book List</h2>
 			<section className="booklist">
 				{responseArray.map((element, index) => {
-					return <Book key={index} imageUrl={element.url} title={element.title} authorName={element.author} />
+					const {url, title, author} = element;
+					return <Book key={index} imageUrl={url} title={title} authorName={author} />
 				})}
 			</section>
 		</React.Fragment>
@@ -54,32 +55,41 @@ function BookList() {
 // Component as arrow function
 const Book = (props) => {
 	console.log(props);
-	const altText = (props.title && props.authorName) ? props.title.toLowerCase().split(' ').join('_') + '_' + props.authorName.toLowerCase().split(' ').join('_') : '';
+
+	const {imageUrl, title, authorName} = props;
+	const altText = (title && authorName) ? title.toLowerCase().split(' ').join('_') + '_' + authorName.toLowerCase().split(' ').join('_') : '';
+
 	return (
 		<div className="book">
-			<Cover imageUrl={props.imageUrl} alt={altText} />
-			<Title title={props.title} />
-			<Author authorName={props.authorName} />
+			<Cover imageUrl={imageUrl} alt={altText} />
+			<Title title={title} />
+			<Author authorName={authorName} />
 		</div>
 	);
 }
 
 const Cover = (props) => {
-	const imageUrl = (props.imageUrl) ? props.imageUrl : '',
-	altText = (props.altText) ? props.altText : 'book_cover';
+	let {imageUrl, altText} = props;
+	imageUrl = (imageUrl) ? imageUrl : '';
+	altText = (altText) ? altText : 'book_cover';
+
 	return <img src={imageUrl} alt={altText}/>
 }
 
 
 const Title = (props) => {
-	const title = (props.title) ? props.title.toUpperCase() : 'Unknown Title';
+	let {title} = props;
+	title = (title) ? title.toUpperCase() : 'Unknown Title';
+
 	return <h3>{title}</h3>;
 }
 
 
 // style needs double brackets: outer brackets are JavaScript world, inner brackets are an object
 const Author = (props) => {
-	const authorName = (props.authorName) ? props.authorName : 'Unknown Author';
+	let {authorName} = props;
+	authorName = (authorName) ? authorName : 'Unknown Author';
+
 	return (
 		<h4 style={{
 			// 'color' or color
