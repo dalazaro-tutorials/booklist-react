@@ -44,8 +44,7 @@ function BookList() {
 			<h2>Book List</h2>
 			<section className="booklist">
 				{responseArray.map((element, index) => {
-					const {url, title, author} = element;
-					return <Book key={index} imageUrl={url} title={title} authorName={author} />
+					return <Book key={index} {...element} />
 				})}
 			</section>
 		</React.Fragment>
@@ -53,23 +52,23 @@ function BookList() {
 }
 
 // Component as arrow function
-const Book = ({imageUrl, title, authorName}) => {
-	const altText = (title && authorName) ? title.toLowerCase().split(' ').join('_') + '_' + authorName.toLowerCase().split(' ').join('_') : '';
+const Book = ({url, title, author}) => {
+	const altText = (title && author) ? title.toLowerCase().split(' ').join('_') + '_' + author.toLowerCase().split(' ').join('_') : '';
 
 	return (
 		<div className="book">
-			<Cover imageUrl={imageUrl} alt={altText} />
+			<Cover url={url} alt={altText} />
 			<Title title={title} />
-			<Author authorName={authorName} />
+			<Author author={author} />
 		</div>
 	);
 }
 
-const Cover = ({imageUrl, altText}) => {
-	imageUrl = (imageUrl) ? imageUrl : '';
+const Cover = ({url, altText}) => {
+	url = (url) ? url : '';
 	altText = (altText) ? altText : 'book_cover';
 
-	return <img src={imageUrl} alt={altText}/>
+	return <img src={url} alt={altText}/>
 }
 
 
@@ -81,8 +80,8 @@ const Title = ({title}) => {
 
 
 // style needs double brackets: outer brackets are JavaScript world, inner brackets are an object
-const Author = ({authorName}) => {
-	authorName = (authorName) ? authorName : 'Unknown Author';
+const Author = ({author}) => {
+	author = (author) ? author : 'Unknown Author';
 
 	return (
 		<h4 style={{
@@ -92,8 +91,8 @@ const Author = ({authorName}) => {
 			fontSize: '0.75rem',
 			marginTop: '0.25rem'
 		}}>
-			{/* authorName string interpolated */}
-			by {authorName}
+			{/* author string interpolated */}
+			by {author}
 		</h4>
 	);
 }
